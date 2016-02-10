@@ -459,16 +459,38 @@
 
             if(children && children.length && !klass) {
               
-              $this
-                .addClass('active')
-                .siblings()
-                .removeClass('active');                
 
-              base.appendTaxonomy({
+              if(depth === 2) {
+                $this.parents('.miller--column').addClass('slide');
+                setTimeout( function() {
+                  base.appendTaxonomy({
+                  taxonomy: children, 
+                  depth: depth, 
+                  parent: parent
+                })
+                }, 800);
+                
+              } else {
+
+                if ($this.siblings('.active')[0]) {
+                  console.log('already one parent was selected');
+                }
+                console.log('depth 1');
+                $this.parents('.miller--column').siblings('.miller--column').css('background', 'red');
+                
+                 base.appendTaxonomy({
                 taxonomy: children, 
                 depth: depth, 
                 parent: parent
               }); 
+              }
+
+              $this
+                .addClass('active')
+                .siblings()
+                .removeClass('active');              
+
+             
               
             }else{
               

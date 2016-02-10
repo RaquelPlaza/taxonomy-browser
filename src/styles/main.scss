@@ -57,6 +57,7 @@ html{
 }
 
 .miller--placeholder__background{
+  display: none;
   background: $placeholder-column-background;
   margin:0 $column-margin; /* Column Width */
   height:100%;
@@ -185,6 +186,29 @@ html{
   }
   
 }
+
+@keyframes slideleft {
+    from {margin-left: 0;}
+    to {margin-left: -15%;}
+}
+
+@keyframes slideright {
+    from {margin-left: -15%;}
+    to {margin-left: 0;}
+}
+
+.slide {  
+  animation-name: slideleft;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+
+}
+.resetslide {
+    animation-name: slideright;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+}
+  
 
 
 
