@@ -469,14 +469,14 @@
                   parent: parent
                 })
                 }, 800);
-                
+
               } else {
 
                 if ($this.siblings('.active')[0]) {
                   console.log('already one parent was selected');
                 }
-                console.log('depth 1');
-                $this.parents('.miller--column').siblings('.miller--column').css('background', 'red');
+                console.log($this);
+                $this.parents('.miller--column').siblings('.miller--column[data-depth="1"]').css('background', 'red');
                 
                  base.appendTaxonomy({
                 taxonomy: children, 
