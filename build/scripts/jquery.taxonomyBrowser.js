@@ -183,8 +183,8 @@
                     'class': 'miller--placeholder--column'                    
                 }).css({
                     'height': base.options.columnheight,
-                    'width': columnWidth + '%',
-                    'left': i * columnWidth + '%'
+                    'width': 25 + '%',
+                    'left': i * 25 + '%'
                 }).html('<div class="miller--placeholder__background" />').appendTo($container);
                 
             }
@@ -305,13 +305,21 @@
           */
           
           var depth = options.depth || 0,
-              columnWidth = 100/base.options.columns,
-              $column = $('<div />', {
+              columnWidth = 25;
+
+          if (depth > 1 && base.options.columns < 4) {
+            columnWidth = 50;
+          }
+
+          var mincolumnheight = $('.miller--column[data-depth="0"]').height();
+
+          var $column = $('<div />', {
                 'class': base.options.columnclass.replace('.',''),
                 'data-depth': depth,
                 'tabindex': depth
               }).css({
                 'height': base.options.columnheight,
+                'min-height': mincolumnheight,
                 'width': columnWidth + '%'
               }),
               taxonomy = options.taxonomy;
@@ -319,8 +327,6 @@
           /**
            * Get Parent Taxonomy Object
            */
-          
-
           
           if(depth > 0){
 
@@ -459,16 +465,38 @@
 
             if(children && children.length && !klass) {
               
-              $this
-                .addClass('active')
-                .siblings()
-                .removeClass('active');                
 
-              base.appendTaxonomy({
+              if(depth >= 2) {
+                $this.parents('.miller--column').addClass('slide');
+                setTimeout( function() {
+                  base.appendTaxonomy({
+                  taxonomy: children, 
+                  depth: depth, 
+                  parent: parent
+                })
+                }, 800);
+
+              } else {
+
+                if ($this.siblings('.active')[0]) {
+                  // console.log('already one parent was selected');
+                  // console.log($('.active'));
+                }
+                // $this.parents('.miller--column').siblings('.miller--column[data-depth="1"]').css('background', 'red');
+                
+                 base.appendTaxonomy({
                 taxonomy: children, 
                 depth: depth, 
                 parent: parent
               }); 
+              }
+
+              $this
+                .addClass('active')
+                .siblings()
+                .removeClass('active');              
+
+             
               
             }else{
               
@@ -566,7 +594,7 @@
         rootvalue: null, 
         columnclass: '.miller--column', 
         columns: 3, 
-        columnheight: 400,
+        columnheight: 'auto',
         start: '' /* ID or index of the Taxonomy Where you want to start */,
         template: 'taxonomy_terms'
     };

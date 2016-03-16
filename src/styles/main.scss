@@ -67,10 +67,11 @@ html{
 
 .miller--column{
   float:left;
+  border-left: 1px #ccc solid;
   width:33.333%;
   position:relative;
   z-index: 1;
-  background: none;
+  background: #fff;
 }
 
 /* Terms Selection */
@@ -82,13 +83,16 @@ html{
 
 /* Terms Container */
 
-.miller--terms--container{
-  border: 1px #ccc solid;	
+.miller--terms--container{	
   height:100%;
 	margin:0 $column-margin;  /* Column Width */
 	overflow:auto;
+  background: #fff;
 }
 
+.miller--column:first-child{
+  border-left: 0px;  
+}
 
 .js-focus{
   outline: 1px #000 dotted;
@@ -107,7 +111,7 @@ html{
 	li{
 		margin: 0;		
     padding: 0;		
-		border-bottom: 1px #b8bbbd solid;
+		border-bottom: 0px #b8bbbd solid;
 		cursor: pointer;
 		position:relative;
   }
@@ -176,12 +180,12 @@ html{
   /* Active Taxonomy */
   
   .active .icon-arrow{
-    opacity:0;
+    opacity:1;
     display:none\9; /* IE 8 Hack */
   }
   
   .active .icon-search{
-    opacity:1;
+    opacity:0;
     display:block\9; /* IE 8 Hack */
   }
   
@@ -204,7 +208,7 @@ html{
 
 }
 .resetslide {
-    animation-name: slideright;
+  animation-name: slideright;
   animation-duration: 0.5s;
   animation-fill-mode: forwards;
 }

@@ -183,8 +183,8 @@
                     'class': 'miller--placeholder--column'                    
                 }).css({
                     'height': base.options.columnheight,
-                    'width': columnWidth + '%',
-                    'left': i * columnWidth + '%'
+                    'width': 25 + '%',
+                    'left': i * 25 + '%'
                 }).html('<div class="miller--placeholder__background" />').appendTo($container);
                 
             }
@@ -305,13 +305,21 @@
           */
           
           var depth = options.depth || 0,
-              columnWidth = 100/base.options.columns,
-              $column = $('<div />', {
+              columnWidth = 25;
+
+          if (depth > 1 && base.options.columns < 4) {
+            columnWidth = 50;
+          }
+
+          var mincolumnheight = $('.miller--column[data-depth="0"]').height();
+
+          var $column = $('<div />', {
                 'class': base.options.columnclass.replace('.',''),
                 'data-depth': depth,
                 'tabindex': depth
               }).css({
                 'height': base.options.columnheight,
+                'min-height': mincolumnheight,
                 'width': columnWidth + '%'
               }),
               taxonomy = options.taxonomy;
@@ -319,8 +327,6 @@
           /**
            * Get Parent Taxonomy Object
            */
-          
-
           
           if(depth > 0){
 
@@ -455,12 +461,13 @@
                 depth = Number($this.closest(base.options.columnclass).data('depth')) + 1,
                 klass = $this.hasClass('active'),
                 url = $this.find('a').attr("href");
+                console.log(url);
             
 
             if(children && children.length && !klass) {
               
 
-              if(depth === 2) {
+              if(depth >= 2) {
                 $this.parents('.miller--column').addClass('slide');
                 setTimeout( function() {
                   base.appendTaxonomy({
@@ -473,12 +480,12 @@
               } else {
 
                 if ($this.siblings('.active')[0]) {
-                  console.log('already one parent was selected');
+                  // console.log('already one parent was selected');
+                  // console.log($('.active'));
                 }
-                console.log($this);
-                $this.parents('.miller--column').siblings('.miller--column[data-depth="1"]').css('background', 'red');
+                // $this.parents('.miller--column').siblings('.miller--column[data-depth="1"]').css('background', 'red');
                 
-                 base.appendTaxonomy({
+                base.appendTaxonomy({
                 taxonomy: children, 
                 depth: depth, 
                 parent: parent
@@ -588,7 +595,7 @@
         rootvalue: null, 
         columnclass: '.miller--column', 
         columns: 3, 
-        columnheight: 400,
+        columnheight: 'auto',
         start: '' /* ID or index of the Taxonomy Where you want to start */,
         template: 'taxonomy_terms'
     };
