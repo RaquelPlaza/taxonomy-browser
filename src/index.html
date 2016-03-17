@@ -21,13 +21,13 @@
 	<div class="miller-container" data-source="html">				
 		
 		<ul>
-			<li>
-				<a href="#">Recovery & Wellbeing</a>			
+			<li data-template="nav">
+				<a href="this-link">Recovery & Wellbeing</a>			
 				<ul>
-					<li><a href="#">What is personal recovery</a>
+					<li data-template="listtpl"><a href="#">What is personal recovery</a>
 						<ul>
-							<li><a href="#">Conectedness</a></li>
-							<li><a href="#">Hope and optimism</a></li>
+							<li><a href="a">Conectedness</a></li>
+							<li><a href="bbbbb">Hope and optimism</a></li>
 							<li><a href="#">Identity</a></li>
 							<li><a href="#">Meaning in life</a></li>
 							<li><a href="#">Empowerment</a></li>
@@ -35,7 +35,7 @@
 					</li>
 					<li><a href="#">Clinical recovery</a></li>
 					<li><a href="#">Wellbeing</a></li>
-					<li><a href="#">User stories</a>
+					<li data-template="some-template"><a href="someid">User stories</a>
 						<ul>
 							<li><a href="#">Children 41</a></li>
 							<li><a href="#">Children 42</a></li>
@@ -53,7 +53,7 @@
 					<li><a href="#">Sleeping problems</a></li>
 					<li><a href="#">Stress</a></li>
 					<li><a href="#">Anxiety</a></li>
-					<li>
+					<li data-template="some-template">
 						<a href="#">Diagnosis</a>
 						<ul>
 							<li><a href="#">What is diagnosis</a>
@@ -140,7 +140,7 @@
 
   		<ul class="terms">
   			{{#each taxonomies}}
-  				<li class="term {{#if childrenCount}}has-children{{/if}}" data-id="{{id}}">
+  				<li class="term {{#if childrenCount}}has-children{{/if}}" data-id="{{id}}" data-template="{{template}}">
   					<a href="{{url}}">
   					  <span class="title">{{label}}</span> 
   					  <em class="icon icon-arrow"></em> 			
@@ -167,7 +167,8 @@
 		$(function(){
 			
 			$('.miller-container').taxonomyBrowser({
-			  columns: 4
+			  columns: 4,
+			  navtemplateid: 'nav'
 			});
 			
 		});

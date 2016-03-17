@@ -146,10 +146,12 @@
                     label = $child.text(),
                     id = $child.sanitize(),
                     parent = $this.closest('ul').prev('a').sanitize() || null;
+                    
 
                 taxArray.push({
                   label: label,
                   id: id,
+                  template: $this.attr('data-template') || '',
                   slug: id,
                   parent: parent,
                   url: $child.attr('href') || '#'
@@ -418,6 +420,7 @@
          * Gets Object Attributes from the Taxonomy Array
          * @param  {String} attr
          * @param  {String} id
+         * @param  {String} template
          * @return {String} attribute value
          */
         base.getAttributes = function(id, attr){
@@ -429,7 +432,6 @@
             if(this.taxonomy[i]["id"] == id) attrValue = this.taxonomy[i][attr];
 
           }
-
           return attrValue;
 
         };
@@ -461,12 +463,13 @@
                 depth = Number($this.closest(base.options.columnclass).data('depth')) + 1,
                 klass = $this.hasClass('active'),
                 url = $this.find('a').attr("href");
-                console.log(url);
+                template = this.getAttribute('data-template') || base.options.navtemplateid;
             
 
-            if(children && children.length && !klass) {
-              
-
+            if(children && children.length && !klass && template === base.options.navtemplateid) {
+              console.log(base.options.navtemplateid);
+            console.log(template);
+               
               if(depth >= 2) {
                 $this.parents('.miller--column').addClass('slide');
                 setTimeout( function() {
@@ -597,7 +600,8 @@
         columns: 3, 
         columnheight: 'auto',
         start: '' /* ID or index of the Taxonomy Where you want to start */,
-        template: 'taxonomy_terms'
+        template: 'taxonomy_terms',
+        navtemplateid: 'nav'
     };
 
     $.fn.sanitize = function(){

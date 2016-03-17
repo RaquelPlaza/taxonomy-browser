@@ -152,7 +152,7 @@
                   id: id,
                   slug: id,
                   parent: parent,
-                  url: $child.attr('href') || '#'
+                  url: $child.attr('href')
                 });
 
 
@@ -461,6 +461,7 @@
                 depth = Number($this.closest(base.options.columnclass).data('depth')) + 1,
                 klass = $this.hasClass('active'),
                 url = $this.find('a').attr("href");
+                console.log(url);
             
 
             if(children && children.length && !klass) {
@@ -484,7 +485,7 @@
                 }
                 // $this.parents('.miller--column').siblings('.miller--column[data-depth="1"]').css('background', 'red');
                 
-                 base.appendTaxonomy({
+                base.appendTaxonomy({
                 taxonomy: children, 
                 depth: depth, 
                 parent: parent
