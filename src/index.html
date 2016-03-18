@@ -21,10 +21,10 @@
 	<div class="miller-container" data-source="html">				
 		
 		<ul>
-			<li data-template="nav">
+			<li data-template="nav" data-docid="888">
 				<a href="this-link">Recovery & Wellbeing</a>			
 				<ul>
-					<li data-template="listtpl"><a href="#">What is personal recovery</a>
+					<li data-template="nav" data-docid="987"><a href="#">What is personal recovery</a>
 						<ul>
 							<li><a href="a">Conectedness</a></li>
 							<li><a href="bbbbb">Hope and optimism</a></li>
@@ -35,7 +35,7 @@
 					</li>
 					<li><a href="#">Clinical recovery</a></li>
 					<li><a href="#">Wellbeing</a></li>
-					<li data-template="some-template"><a href="someid">User stories</a>
+					<li data-template="some-template" data-docid="111"><a href="someid">User stories</a>
 						<ul>
 							<li><a href="#">Children 41</a></li>
 							<li><a href="#">Children 42</a></li>
@@ -46,17 +46,17 @@
 					</li>
 				</ul>
 			</li>
-			<li>
+			<li data-docid="555">
 				<a href="#">Your mental health</a>				
 				<ul>
 					<li><a href="#">Self-harm</a></li>
 					<li><a href="#">Sleeping problems</a></li>
 					<li><a href="#">Stress</a></li>
 					<li><a href="#">Anxiety</a></li>
-					<li data-template="some-template">
+					<li data-docid="222">
 						<a href="#">Diagnosis</a>
 						<ul>
-							<li><a href="#">What is diagnosis</a>
+							<li data-docid="444"><a href="#">What is diagnosis</a>
 								<ul>
 								<li><a href="#">Controversies about diagnosis</a></li>
 								<li><a href="#">How to explain a diagnosis to friends and family</a></li>
@@ -70,55 +70,7 @@
 					</li>
 				</ul>
 			</li>
-			<li>
-				<a href="#">What can help</a>				
-				<ul>
-					<li><a href="#">Peer support</a></li>
-					<li><a href="#">Self management</a></li>
-					<li><a href="#">Importance of physical health</a>
-						<ul>
-							<li><a href="#">Nutrition</a></li>
-							<li><a href="#">Exercise</a></li>
-						</ul>
-					</li>
-					<li><a href="#">Psychological therapies</a></li>
-					<li><a href="#">Other inventions</a></li>
-					<li><a href="#">Other therapies</a></li>
-				</ul>
-			</li>
-			<li>
-				<a href="#">Using services</a>
-				<ul>
-					<li><a href="#">Dealing with the system</a></li>
-					<li><a href="#">Your care plan</a></li>
-					<li><a href="#">Choice / shared decision making</a></li>
-					<li><a href="#">Harm minimisation</a></li>
-					<li><a href="#">Worried about someone?</a></li>
-					<li><a href="#">Becoming a carer</a>
-						<ul>
-							<li><a href="#">Information sharing</a></li>
-							<li><a href="#">Rights</a></li>
-							<li><a href="#">Carers act</a></li>
-							<li><a href="#">Tribunal</a></li>
-						</ul>
-					</li>
-					<li><a href="#">Maental health act and personal rights</a></li>
-					<li><a href="#">Advanced directives</a></li>
-					<li><a href="#">Stigma</a></li>
-					<li><a href="#">Mental health teams</a></li>
-					<li><a href="#">Crisis services</a></li>
-				</ul>	
-			</li>
-			<li>
-				<a href="#">Other resources</a>
-				<ul>
-					<li><a href="#">List view</a></li>
-					<li><a href="#">Map view</a></li>
-				</ul>	
-			</li>
-			<li>
-				<a href="#">Moodle courses</a>	
-			</li>
+			
 		</ul>
 
 
@@ -140,7 +92,7 @@
 
   		<ul class="terms">
   			{{#each taxonomies}}
-  				<li class="term {{#if childrenCount}}has-children{{/if}}" data-id="{{id}}" data-template="{{template}}">
+  				<li class="term {{#if childrenCount}}has-children{{/if}}" data-id="{{id}}" data-docid="{{docid}}" data-template="{{template}}">
   					<a href="{{url}}">
   					  <span class="title">{{label}}</span> 
   					  <em class="icon icon-arrow"></em> 			

@@ -146,11 +146,14 @@
                     label = $child.text(),
                     id = $child.sanitize(),
                     parent = $this.closest('ul').prev('a').sanitize() || null;
+                    parentid= $this.attr('data-docid') || parent;
+                    
                     
 
                 taxArray.push({
                   label: label,
                   id: id,
+                  docid: $this.attr('data-docid'),
                   template: $this.attr('data-template') || '',
                   slug: id,
                   parent: parent,
@@ -458,17 +461,17 @@
           base.$el.on('click', 'li', function(e){
 
             var $this = $(this),
-                parent = this.getAttribute('data-id'),                
+                parent = this.getAttribute('data-id'),
+                parentid = this.getAttribute('data-docid'),                
                 children = base.getChildren(parent),
                 depth = Number($this.closest(base.options.columnclass).data('depth')) + 1,
                 klass = $this.hasClass('active'),
                 url = $this.find('a').attr("href");
                 template = this.getAttribute('data-template') || base.options.navtemplateid;
+                console.log(parentid);
             
 
             if(children && children.length && !klass && template === base.options.navtemplateid) {
-              console.log(base.options.navtemplateid);
-            console.log(template);
                
               if(depth >= 2) {
                 $this.parents('.miller--column').addClass('slide');
@@ -476,7 +479,8 @@
                   base.appendTaxonomy({
                   taxonomy: children, 
                   depth: depth, 
-                  parent: parent
+                  parent: parent,
+                  parentid: parentid
                 })
                 }, 800);
 
@@ -491,7 +495,8 @@
                 base.appendTaxonomy({
                 taxonomy: children, 
                 depth: depth, 
-                parent: parent
+                parent: parent,
+                parentid: parentid
               }); 
               }
 
