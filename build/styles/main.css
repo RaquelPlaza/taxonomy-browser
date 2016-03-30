@@ -183,6 +183,16 @@ a {
     margin-right: 10px; }
 
   .miller--terms--selection {
-    display: block; } }
+    display: block; }
+
+  .slide {
+    animation-name: none;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards; }
+
+  .resetslide {
+    animation-name: none;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards; } }
 
 /*# sourceMappingURL=main.css.map */
