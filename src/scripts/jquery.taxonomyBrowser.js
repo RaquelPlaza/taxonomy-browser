@@ -85,9 +85,6 @@
 
         base.$el.data("taxonomyBrowser", base);
 
-        
-
-        
         /**
         * Initializes the Plugin
         * @method Init
@@ -146,9 +143,9 @@
                     label = $child.text(),
                     id = $child.sanitize(),
                     parent = $this.closest('ul').prev('a').sanitize() || null;
-                    parentid= $this.attr('data-docid') || parent;
-                    
-                    
+                    docid= $this.attr('data-docid') || null;
+                    parentdocid = $this.closest('ul').parent('li').attr('data-docid') || null;
+    
 
                 taxArray.push({
                   label: label,
@@ -157,7 +154,8 @@
                   template: $this.attr('data-template') || '',
                   slug: id,
                   parent: parent,
-                  url: $child.attr('href') || '#'
+                  url: $child.attr('href') || '#',
+                  parentdocid: parentdocid
                 });
 
 
@@ -217,7 +215,7 @@
 
           for(var i =0; i < total; i++){
 
-            if(taxonomy[i].parent == base.options.rootvalue) root.push(taxonomy[i]);                    
+            if(taxonomy[i].parent == base.options.rootvalue) root.push(taxonomy[i]);                   
 
             var current = taxonomy[i],
                 count = 0;
@@ -261,6 +259,9 @@
             taxonomy: base.root                
           });
 
+          // set min height to parent container for mobile devices
+          var mincolumnheight = $('.miller--column[data-depth="0"]').height();
+          $('.miller--column--wrap').height( mincolumnheight);
 
 
 
@@ -338,7 +339,7 @@
             this.parentArray.splice(depth-1, 10);
 
             this.parentArray.push({
-              name: base.getAttributes(options.parent, 'label'),
+              name: base.getAttributes(options.parent, 'id'),
               depth: depth
             });
 
@@ -381,7 +382,6 @@
            * Append 
            */
           
-
           
           if(depth < base.options.columns)  {
             
@@ -400,8 +400,6 @@
             base.$el.trigger('after:append', [taxonomy, depth]);            
 
           }
-
-
           
         };
 
@@ -445,8 +443,6 @@
         
         $.fn.taxonomyBrowser.removeColumns = base.removeColumns;
 
-
-
         /**
         * Add events to the taxonomy browser
         * @method initEvents
@@ -462,60 +458,71 @@
 
             var $this = $(this),
                 parent = this.getAttribute('data-id'),
-                parentid = this.getAttribute('data-docid'),                
+                parentdocid = parentdocid = this.getAttribute('data-docid'),                
                 children = base.getChildren(parent),
                 depth = Number($this.closest(base.options.columnclass).data('depth')) + 1,
                 klass = $this.hasClass('active'),
                 url = $this.find('a').attr("href");
                 template = this.getAttribute('data-template') || base.options.navtemplateid;
-                console.log(parentid);
             
-
             if(children && children.length && !klass && template === base.options.navtemplateid) {
-               
+
               if(depth >= 2) {
                 $this.parents('.miller--column').addClass('slide');
-                setTimeout( function() {
+                // setTimeout( function() {
                   base.appendTaxonomy({
                   taxonomy: children, 
                   depth: depth, 
                   parent: parent,
-                  parentid: parentid
+                  parentdocid: parentdocid
                 })
-                }, 800);
+                // }, 800);
 
+                
               } else {
-
-                if ($this.siblings('.active')[0]) {
-                  // console.log('already one parent was selected');
-                  // console.log($('.active'));
-                }
-                // $this.parents('.miller--column').siblings('.miller--column[data-depth="1"]').css('background', 'red');
                 
                 base.appendTaxonomy({
                 taxonomy: children, 
                 depth: depth, 
                 parent: parent,
-                parentid: parentid
+                parentdocid: parentdocid
               }); 
+                
               }
 
               $this
                 .addClass('active')
                 .siblings()
-                .removeClass('active');              
+                .removeClass('active');     
+                         
+              // set min height to parent container for mobile devices
+              mincolumnheight = $('.miller--column[data-depth='+depth+']').height();
+              $('.miller--column--wrap').height( mincolumnheight);
+              
+            }else if(!klass || !children) {
 
-             
-              
-            }else{
-              
               window.location = url;  
               
+            }else{
+
+              var currentColDepth = $this.parents('.miller--column').attr('data-depth') +1;
+
+              $this.parents('.miller--column[data-depth='+currentColDepth+']').addClass('resetslide');
+              
+              base.appendTaxonomy({
+                taxonomy: children, 
+                depth: depth, 
+                parent: parent,
+                parentdocid: parentdocid
+              });
+              $this
+                .addClass('active')
+                .siblings()
+                .removeClass('active');
+
             }
 
-
             e.preventDefault();
-
 
           });
 

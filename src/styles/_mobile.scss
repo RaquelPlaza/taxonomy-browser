@@ -51,3 +51,15 @@ html{
 .miller--terms--selection{
   display: block;
 }
+
+.slide {  
+  animation-name: none;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+
+}
+.resetslide {
+  animation-name: none;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+}
