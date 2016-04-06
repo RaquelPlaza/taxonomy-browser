@@ -262,7 +262,14 @@
           // set min height to parent container for mobile devices
           var mincolumnheight = $('.miller--column[data-depth="0"]').height();
           $('.miller--column--wrap').height( mincolumnheight);
+          // breadcrumbs;
+          appendBreadcrumbs();
 
+          /*
+            Register Click Events for breadcrumbs
+           */
+
+          breadcrumbListEvents();
 
 
           /*
@@ -284,12 +291,38 @@
           */
 
           if(base.options.start){
-            
-            base.$el
+
+            /*
+            *            
+            * Work out depth of startPoint
+            * 
+            */
+           
+           var clickables = [];
+            $.each(base.parentArray, function(index, item) {
+
+                clickables.push(item);
+
+                if (item.name == base.options.start) {
+                return false;
+               }
+            })
+
+            $.each(clickables, function(index, item) {
+
+              base.$el
                 .find(base.options.columnclass)
-                .eq(0)
-                .find('li[data-id="'+base.options.start+'"]')
-                .trigger('click');            
+                .eq(item.depth -1)
+                .find('li[data-id="'+item.name+'"]')
+                .trigger('click');
+
+            })
+            
+            // base.$el
+            //     .find(base.options.columnclass)
+            //     .eq(0)
+            //     .find('li[data-id="'+base.options.start+'"]')
+            //     .trigger('click');            
 
           }
                   
@@ -342,6 +375,7 @@
               name: base.getAttributes(options.parent, 'id'),
               depth: depth
             });
+
 
           }else{
 
@@ -402,6 +436,31 @@
           }
           
         };
+
+        /*
+
+        Add breadcrumbs plugin
+
+         */
+        
+        function appendBreadcrumbs() {
+          /* build the DOM */
+          var separator = '<li class=class="separater">&rsaquo;</li>';
+          var breadcrumb = '';
+
+          var len = $('.miller-container').find('li.active').length;
+
+          $.each($('.miller-container').find('li.active').find('span'), function(index) {
+            breadcrumb += separator;
+            if (index == len - 1) {
+              breadcrumb += '<li data-id=' + $(this).parents('li').attr('data-id') + '><span>' + $(this).text() + '</span></li>';
+            } else {
+              breadcrumb += '<li data-id=' + $(this).parents('li').attr('data-id') + '><a href=' + $(this).parent('a').attr('href') + '>' + $(this).text() + '</a></li>';              
+            }
+          });
+
+          $('.breadcrumb-container .inner .secondary').html(breadcrumb);
+        }
 
         
         /**
@@ -499,6 +558,7 @@
               mincolumnheight = $('.miller--column[data-depth='+depth+']').height();
               $('.miller--column--wrap').height( mincolumnheight);
               
+              
             }else if(!klass || !children) {
 
               window.location = url;  
@@ -520,9 +580,13 @@
                 .siblings()
                 .removeClass('active');
 
+
             }
 
             e.preventDefault();
+
+            // breadcrumbs;
+            appendBreadcrumbs();
 
           });
 
@@ -571,7 +635,48 @@
 
         };
 
+        /**
+         *
+         * Breadcrumbs list click event
+         * 
+         */
         
+        var breadcrumbListEvents  = function(){
+
+          $('.breadcrumb-container .secondary').on('click', 'li', function(e){
+            e.preventDefault();
+            
+            var startPoint = $(this).attr('data-id');
+
+            /*
+            *            
+            * Work out depth of startPoint
+            * 
+            */
+           
+           var clickables = [];
+            $.each(base.parentArray, function(index, item) {
+
+                clickables.push(item);
+
+                if (item.name == startPoint) {
+                return false;
+               }
+            })
+
+            $.each(clickables, function(index, item) {
+
+              base.$el
+                .find(base.options.columnclass)
+                .eq(item.depth -1)
+                .find('li[data-id="'+item.name+'"]')
+                .trigger('click');
+
+            })
+
+         });
+        }
+
 
 
         /**
@@ -603,6 +708,8 @@
     
     
     // Default Options
+    // 
+    var startPoint = '';
 
     $.taxonomyBrowser.defaultOptions = {        
         source: 'json',
@@ -611,10 +718,11 @@
         columnclass: '.miller--column', 
         columns: 3, 
         columnheight: 'auto',
-        start: '' /* ID or index of the Taxonomy Where you want to start */,
+        start: startPoint /* ID or index of the Taxonomy Where you want to start */,
         template: 'taxonomy_terms',
         navtemplateid: 'nav'
     };
+
 
     $.fn.sanitize = function(){
       

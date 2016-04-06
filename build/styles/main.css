@@ -1,20 +1,3 @@
-/* Base */
-html {
-  font-family: Arial, Helvetica;
-  color: #818285;
-  line-height: 1.4;
-  width: 90%;
-  margin: 0 auto; }
-
-/* Box Sizing : IE 8 and above */
-* {
-  box-sizing: border-box; }
-
-/* Links */
-a {
-  text-decoration: none;
-  color: #222; }
-
 /* Container */
 .miller-container {
   position: relative; }

@@ -291,12 +291,38 @@
           */
 
           if(base.options.start){
+
+            /*
+            *            
+            * Work out depth of startPoint
+            * 
+            */
+           
+           if(base.options.start.length >=1) {
+
+            var clickables = base.options.start;
             
+
+            clickables.forEach(function(item, index) {
+
+              base.$el
+                .find(base.options.columnclass)
+                .eq(index)
+                .find('li[data-id="'+item+'"]')
+                .trigger('click');
+
+            })
+
+            } else {
+
             base.$el
                 .find(base.options.columnclass)
                 .eq(0)
                 .find('li[data-id="'+base.options.start+'"]')
-                .trigger('click');            
+                .trigger('click');  
+
+            }
+          
 
           }
                   

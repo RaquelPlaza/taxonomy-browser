@@ -14,6 +14,13 @@
 
 	<h4>Taxonomy Data from the html</h4>
 
+	<div class="breadcrumb-container">
+		<div class="inner">
+			<ul class="secondary">
+
+			</ul>
+		</div>
+	</div>
 	
 	<!-- Miller container -->
 	<div class="miller-container" data-source="html">				
@@ -115,7 +122,8 @@
 			
 			$('.miller-container').taxonomyBrowser({
 			  columns: 4,
-			  navtemplateid: 'nav'
+			  navtemplateid: 'nav',
+			  start:'link-one'
 			});
 			
 		});
