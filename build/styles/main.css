@@ -112,10 +112,10 @@
   from {
     margin-left: 0; }
   to {
-    margin-left: -15%; } }
+    margin-left: -10%; } }
 @keyframes slideright {
   from {
-    margin-left: -15%; }
+    margin-left: -10%; }
   to {
     margin-left: 0; } }
 .slide {

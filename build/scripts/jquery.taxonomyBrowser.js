@@ -298,31 +298,31 @@
             * 
             */
            
-           var clickables = [];
-            $.each(base.parentArray, function(index, item) {
+           if(base.options.start.length >=1) {
 
-                clickables.push(item);
+            var clickables = base.options.start;
+            
 
-                if (item.name == base.options.start) {
-                return false;
-               }
-            })
-
-            $.each(clickables, function(index, item) {
+            clickables.forEach(function(item, index) {
 
               base.$el
                 .find(base.options.columnclass)
-                .eq(item.depth -1)
-                .find('li[data-id="'+item.name+'"]')
+                .eq(index)
+                .find('li[data-id="'+item+'"]')
                 .trigger('click');
 
             })
-            
-            // base.$el
-            //     .find(base.options.columnclass)
-            //     .eq(0)
-            //     .find('li[data-id="'+base.options.start+'"]')
-            //     .trigger('click');            
+
+            } else {
+
+            base.$el
+                .find(base.options.columnclass)
+                .eq(0)
+                .find('li[data-id="'+base.options.start+'"]')
+                .trigger('click');  
+
+            }
+          
 
           }
                   
@@ -556,7 +556,14 @@
                          
               // set min height to parent container for mobile devices
               mincolumnheight = $('.miller--column[data-depth='+depth+']').height();
+              console.log(mincolumnheight);
               $('.miller--column--wrap').height( mincolumnheight);
+
+              // set all columns to be as high as the highest on screen
+              var col = $('.miller--column').height();
+              col.forEach(function(index, value) {
+                console.log(value);
+              })
               
               
             }else if(!klass || !children) {

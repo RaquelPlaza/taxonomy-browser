@@ -59,7 +59,7 @@ $placeholder-column-background: #f3f3f4;
 .miller--terms--container{	
   height:100%;
 	margin:0 $column-margin;  /* Column Width */
-	overflow:auto;
+	overflow:visible;
   background: #fff;
 }
 
@@ -166,11 +166,11 @@ $placeholder-column-background: #f3f3f4;
 
 @keyframes slideleft {
     from {margin-left: 0;}
-    to {margin-left: -15%;}
+    to {margin-left: -10%;}
 }
 
 @keyframes slideright {
-    from {margin-left: -15%;}
+    from {margin-left: -10%;}
     to {margin-left: 0;}
 }
 
