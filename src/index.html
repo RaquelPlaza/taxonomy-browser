@@ -15,23 +15,24 @@
 
 
 	<h4>Taxonomy Data from the html</h4>
+	<div style="height:100px"></div>
 
-	<div class="breadcrumb-container">
+<!-- 	<div class="breadcrumb-container">
 		<div class="inner">
 			<ul class="secondary">
 
 			</ul>
 		</div>
-	</div>
+	</div> -->
 	
 	<!-- Miller container -->
 	<div class="miller-container" data-source="html">				
 		
 		<ul>
 			<li data-template="nav" data-docid="888">
-				<a href="/nav/123">Recovery & Wellbeing</a>			
+				<a href="/nav/123">Recovery & Wellbeing?</a>			
 				<ul>
-					<li data-template="nav" data-docid="987"><a href="nav/456">What is personal recovery</a>
+					<li data-template="nav" data-docid="987"><a href="nav/456">What is personal recovery?</a>
 						<ul>
 							<li><a href="a">Conectedness</a></li>
 							<li><a href="bbbbb">Hope and optimism</a></li>
@@ -43,6 +44,12 @@
 					<li><a href="789">Clinical recovery</a></li>
 					<li><a href="987">Wellbeing</a></li>
 					<li><a href="0000">What is personal recovery</a></li>
+					<li><a href="987">Wellbeing2</a></li>
+					<li><a href="0000">What is personal recovery<2/a></li>
+					<li><a href="987">Wellbeing3</a></li>
+					<li><a href="0000">What is personal recovery3</a></li>
+					<li><a href="987">Wellbeing4</a></li>
+					<li><a href="0000">What is personal recovery4</a></li>
 					<li data-template="some-template" data-docid="111"><a href="someid">User stories</a>
 						<ul>
 							<li><a href="222">Children 41</a></li>
@@ -50,6 +57,15 @@
 							<li><a href="666">Children 43</a></li>
 							<li><a href="8889">Children 44</a></li>
 							<li><a href="444">Children 45</a></li>
+						</ul>
+					</li>
+					<li data-template="nav" data-docid="111"><a href="someid">User stories3</a>
+						<ul>
+							<li><a href="222">Children 414</a></li>
+							<li><a href="888">Children 425</a></li>
+							<li><a href="666">Children 436</a></li>
+							<li><a href="8889">Children 447</a></li>
+							<li><a href="444">Children 458</a></li>
 						</ul>
 					</li>
 				</ul>
@@ -74,6 +90,12 @@
 							<li><a href="69854334">Anxiety disorder</a></li>
 							<li><a href="4565438/9">Attention deficit hyperactivity disorder (ADHD)</a></li>
 							<li><a href="45634532">Autistic spectrum disorder</a></li>
+							<li data-docid="444"><a href="#">What is diagnosis4</a>
+								<ul>
+								<li><a href="5434534">Controversies about diagnosis5</a></li>
+								<li><a href="87979">How to explain a diagnosis to friends and family6</a></li>
+								</ul>
+							</li>
 						</ul>
 					</li>
 				</ul>
@@ -129,7 +151,7 @@
 			$('.miller-container').taxonomyBrowser({
 			  columns: 4,
 			  navtemplateid: 'nav',
-			  start:['link-one', 'link-70']
+			  // start:['link-one', 'link-70']
 			});
 			
 		});

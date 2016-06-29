@@ -529,21 +529,23 @@
             
             if(children && children.length && !klass && template === base.options.navtemplateid) {
 
-              if(depth >= 2) {
-                $this.parents('.miller--column').addClass('slide');
-                // setTimeout( function() {
-                  base.appendTaxonomy({
-                  taxonomy: children, 
-                  depth: depth, 
-                  parent: parent,
-                  parentdocid: parentdocid
-                })
-                // }, 800);
+              // scroll to top when a link is selected
+              $('html, body').animate({ scrollTop: 0 }, '300');
 
+              if(depth >= 2) {
                 
-                
+
+                $this.parents('.miller--column').addClass('slide');
+                base.appendTaxonomy({
+                taxonomy: children, 
+                depth: depth, 
+                parent: parent,
+                parentdocid: parentdocid
+                })
+
               } else {
-                
+
+
                 base.appendTaxonomy({
                 taxonomy: children, 
                 depth: depth, 
@@ -576,7 +578,7 @@
 
             } else if(!klass || !children) {
 
-              window.location = url;  
+               window.location.replace(url);  
               
             }else{
 
@@ -594,6 +596,7 @@
                 .addClass('active')
                 .siblings()
                 .removeClass('active');
+
 
             }
 

@@ -41,7 +41,7 @@
   height: 100%;
   margin: 0 10px;
   /* Column Width */
-  overflow: auto;
+  overflow: visible;
   background: #fff; }
 
 .miller--column:first-child {

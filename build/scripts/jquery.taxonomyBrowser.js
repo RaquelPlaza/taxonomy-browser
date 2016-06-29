@@ -523,6 +523,9 @@
                 klass = $this.hasClass('active'),
                 url = $this.find('a').attr("href");
                 template = this.getAttribute('data-template') || base.options.navtemplateid;
+
+            var grand = '';
+                great = '';    
             
             if(children && children.length && !klass && template === base.options.navtemplateid) {
 
@@ -538,6 +541,7 @@
                 // }, 800);
 
                 
+                
               } else {
                 
                 base.appendTaxonomy({
@@ -546,9 +550,10 @@
                 parent: parent,
                 parentdocid: parentdocid
               }); 
-                
+
               }
 
+              
               $this
                 .addClass('active')
                 .siblings()
@@ -556,17 +561,20 @@
                          
               // set min height to parent container for mobile devices
               mincolumnheight = $('.miller--column[data-depth='+depth+']').height();
-              console.log(mincolumnheight);
+
               $('.miller--column--wrap').height( mincolumnheight);
 
               // set all columns to be as high as the highest on screen
-              var col = $('.miller--column').height();
-              col.forEach(function(index, value) {
-                console.log(value);
-              })
-              
-              
-            }else if(!klass || !children) {
+              var col = $('.miller--column');
+              $.each(col, function(index, value) {
+                var currColHeight = value .scrollHeight;
+
+                if (mincolumnheight > currColHeight) {
+                  col.height(mincolumnheight);
+                }
+              });
+
+            } else if(!klass || !children) {
 
               window.location = url;  
               
@@ -587,10 +595,33 @@
                 .siblings()
                 .removeClass('active');
 
+            }
 
+            // check if there are any children, if not, hide folder
+            $.each(children, function(index, el) {
+              if(el.childrenCount == 0 && el.template == "navtpl") {
+                var element = el.id;
+                // $('li[data-id='+element+']').addClass('hidden');
+                $('li[data-id='+element+']').find('a').attr("href", "#").append('<span class="note">(This section is empty)</span>');
+              } 
+            });
+
+            // find the parent data-id to change url
+                
+            if($this.parents('.miller--column').prev().find('li.active').attr('data-id') != undefined) {
+              grand = $this.parents('.miller--column').prev().find('li.active').attr('data-id') + '/';
+            }
+            if($this.parents('.miller--column').prev().prev().find('li.active').attr('data-id') != undefined) {
+              great = $this.parents('.miller--column').prev().prev().find('li.active').attr('data-id') + '/';
             }
 
             e.preventDefault();
+
+            var updatedUrl = 'site/nav/' + great + grand + parent;
+                stateObj = { stateObject: updatedUrl};
+            window.history.pushState(stateObj, parent, '/' + updatedUrl);
+
+            
 
             // breadcrumbs;
             appendBreadcrumbs();
@@ -698,9 +729,11 @@
           var tax = [];
 
           for(var i = 0; i< this.taxonomy.length; i++){
-            if(this.taxonomy[i].parent == parent) tax.push(this.taxonomy[i]);
-          }
 
+            if(this.taxonomy[i].parent == parent) tax.push(this.taxonomy[i]);
+            
+          }
+          
           return tax;
 
         }
